@@ -2,6 +2,7 @@ package it.studiocut.app
 
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -46,6 +47,7 @@ private val Bg = Color(0xFF101116)
 private val Panel = Color(0xFF1B1D27)
 private val Accent = Color(0xFFA58BFF)
 private val Muted = Color(0xFFA6A9B8)
+private const val AI_COMPANION_URL = "https://github.com/AbrahamPaulJ/nightmare-mobile/releases/latest"
 
 class MainActivity : ComponentActivity() {
     @OptIn(UnstableApi::class)
@@ -111,6 +113,36 @@ private fun StudioCutApp() {
                         Text("FREE · OFFLINE", Modifier.padding(horizontal = 11.dp, vertical = 7.dp), color = Color(0xFFE2D9FF), fontSize = 10.sp, fontWeight = FontWeight.Bold)
                     }
                 }
+                Card(colors = CardDefaults.cardColors(containerColor = Panel), shape = RoundedCornerShape(18.dp)) {
+                    Column(Modifier.padding(13.dp)) {
+                        Text("Animazione AI delle foto", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                        Spacer(Modifier.height(5.dp))
+                        Text(
+                            "Per generare movimento realistico da una foto serve un motore AI separato. Sul Galaxy S24 Ultra puoi provare Nightmare Mobile: elaborazione sul telefono, senza account o crediti. È un'app distinta, non una funzione integrata in StudioCut.",
+                            color = Muted, fontSize = 11.sp, lineHeight = 16.sp
+                        )
+                        Spacer(Modifier.height(8.dp))
+                        Button(
+                            onClick = {
+                                try {
+                                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AI_COMPANION_URL)))
+                                } catch (_: Exception) {
+                                    Toast.makeText(context, "Impossibile aprire il link.", Toast.LENGTH_LONG).show()
+                                }
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF5B4A91)),
+                            shape = RoundedCornerShape(12.dp)
+                        ) {
+                            Text("APRI L'APP AI GRATUITA (ESTERNA)", fontWeight = FontWeight.Bold)
+                        }
+                        Text(
+                            "Nota: su Snapdragon 8 Gen 3 il modello video Wan 2.2 14B è indicato come sperimentale; richiede circa 21 GB e genera clip lentamente. Verifica nel menu Device dell'app quali modelli sono abilitati.",
+                            color = Muted, fontSize = 10.sp, lineHeight = 14.sp
+                        )
+                    }
+                }
+                Spacer(Modifier.height(12.dp))
                 Card(colors = CardDefaults.cardColors(containerColor = Panel), shape = RoundedCornerShape(18.dp)) {
                     Column(Modifier.padding(14.dp)) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
